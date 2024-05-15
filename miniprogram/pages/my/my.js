@@ -35,10 +35,4 @@ Page({
         wx.hideLoading();
       });
   },
-
-  gotoWxCodePage() {
-    wx.navigateTo({
-      url: `/pages/exampleDetail/index?envId=${envList?.[0]?.envId}&type=getMiniProgramCode`,
-    });
-  },
 });

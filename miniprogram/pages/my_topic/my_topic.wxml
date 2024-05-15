@@ -1,0 +1,5 @@
+<!-- pages/me/index.wxml -->
+<view class="page_container">
+  <view class="main_content">
+  </view>
+</view>

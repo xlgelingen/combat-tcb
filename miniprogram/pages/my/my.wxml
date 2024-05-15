@@ -15,17 +15,10 @@
       <view class="setting_item">
         <view class="left">
           <image class="setting_icon" src="../../images/customer-service.svg" />
-          <!-- <view class="setting_text">联系客服</view> -->
+
           <button open-type="contact" class="contact-button">
             联系客服
           </button>
-        </view>
-        <image class="arrow_icon" src="../../images/arrow.svg" />
-      </view>
-      <view class="setting_item" bind:tap="gotoWxCodePage">
-        <view class="left">
-          <image class="setting_icon" src="../../images/share.svg" />
-          <view class="setting_text">分享小程序</view>
         </view>
         <image class="arrow_icon" src="../../images/arrow.svg" />
       </view>

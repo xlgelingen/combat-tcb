@@ -37,6 +37,6 @@
   </view>
 
   <!-- 登录模块 -->
-  <button class="login-btn" wx:if="{{!userInfo.nickName}}" hover-class="login-btn_hover" bindtap="onGetUserInfo">
+  <button class="login-btn" wx:if="{{!userInfo.nickName}}" hover-class="login-btn_hover" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
     授权登录使用</button>
 </view>

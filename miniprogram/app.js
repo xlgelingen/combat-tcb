@@ -2,6 +2,8 @@ App({
   globalData: {
     userInfo: {},
     openid: '',
+    nickName: '',
+    avatarUrl: './images/people.png',
   },
   onLaunch: function () {
     this.cloudInit();

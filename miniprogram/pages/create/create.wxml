@@ -1,5 +1,6 @@
 <!-- pages/me/index.wxml -->
 <view class="page_container">
   <view class="main_content">
+    发布微博
   </view>
 </view>

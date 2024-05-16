@@ -32,6 +32,8 @@ Page({
   },
   onGetUserInfo: function(e) {
     console.log('onGetUserInfo',e.detail.userInfo)
+    app.globalData.nickName = this.data.nickName;
+    app.globalData.avatarUrl = this.data.avatarUrl;
     if (e.detail.userInfo) {
       app.getUserInfo((res)=>{
         this.setData({

@@ -1,38 +1,43 @@
-const { envList } = require('../../envList');
+const app = getApp();
 
-// pages/me/index.js
 Page({
-  /**
-   * 页面的初始数据
-   */
+  // 定义好 userInfo 存储用户信息
   data: {
-    openId: '',
-    showUploadTip: false,
+    logged: false,
+    nickName: '',
+    avatarUrl: '../../images/people.png',
+    userInfo: {},
   },
-
-  getOpenId() {
-    wx.showLoading({
-      title: '',
-    });
-    wx.cloud
-      .callFunction({
-        name: 'quickstartFunctions',
-        data: {
-          type: 'getOpenId',
-        },
-      })
-      .then((resp) => {
-        this.setData({
-          haveGetOpenId: true,
-          openId: resp.result.openid,
-        });
-        wx.hideLoading();
-      })
-      .catch((e) => {
-        this.setData({
-          showUploadTip: true,
-        });
-        wx.hideLoading();
-      });
+  // 在页面加载时调用 getUserInfo 方法
+  onLoad: function() {
+    this.getUserInfo();
   },
-});
+  // 获取全局对象中的 app.globalData.userInfo
+  getUserInfo: function() {
+    let userInfo = app.globalData.userInfo;
+    console.log('getUserInfo',userInfo)
+    if(userInfo.nickName){
+      this.setData({
+        logged: true,
+        userInfo: userInfo
+      })
+    }
+  },
+  onChooseAvatar(e) {
+    console.log('onChooseAvatar',e.detail)
+    const { avatarUrl } = e.detail 
+    this.setData({
+      avatarUrl,
+    })
+  },
+  onGetUserInfo: function(e) {
+    console.log('onGetUserInfo',e.detail.userInfo)
+    if (e.detail.userInfo) {
+      app.getUserInfo((res)=>{
+        this.setData({
+          userInfo: res.userInfo
+        })
+      })
+    }
+  }
+})

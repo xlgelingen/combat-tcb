@@ -1,28 +1,42 @@
-<!-- pages/me/index.wxml -->
-<view class="page_container">
-  <view class="top_bg" />
-  <view class="main_content">
-    <view class="userinfo_container">
-      <image class="avatar" src="../../images/avatar.png" bind:tap="getOpenId" mode="widthFix" />
-      <block wx:if="{{ !openId }}">
-        <view class="username" bind:tap="getOpenId">请点击登录</view>
-      </block>
-      <block wx:else>
-        <view class="username">openId: {{ openId }}</view>
-      </block>
+<view class="page-container">
+  <!-- 用户信息模块 -->
+  <view class="user-section">
+    <view class="login-container">
+      <text class="user-nickName" wx:if="{{userInfo.nickName}}">{{nickName}}</text>
+      <image class="user-avatarUrl" wx:if="{{userInfo.nickName}}" src="{{avatarUrl}}"></image>
     </view>
-    <view class="settings_container">
-      <view class="setting_item">
-        <view class="left">
-          <image class="setting_icon" src="../../images/customer-service.svg" />
-
-          <button open-type="contact" class="contact-button">
-            联系客服
-          </button>
-        </view>
-        <image class="arrow_icon" src="../../images/arrow.svg" />
-      </view>
+    <view class="unLogin-container">
+      <button class="avatar-wrapper" wx:if="{{!userInfo.nickName}}" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="avatar-img" src="{{avatarUrl}}"></image>
+        <view class="avater-descrb">请点击选择头像</view>
+      </button>
+      <mp-form class="nickname-box" wx:if="{{!userInfo.nickName}}">
+        <mp-cells>
+          <mp-cell title="昵称">
+            <input type="nickname" class="weui-input" model:value="{{nickName}}" placeholder="请输入昵称" />
+          </mp-cell>
+        </mp-cells>
+      </mp-form>
     </view>
   </view>
-  <cloud-tip-modal showUploadTipProps="{{showUploadTip}}" />
+
+  <!-- 导航模块 -->
+  <view class="navigator-section" wx:if="{{userInfo.nickName}}">
+    <navigator class="navigator-item" url="/pages/create/create">
+      <view class="navigator-item-bd">发布微博</view>
+      <view class="navigator-item-ft navigator-item-ft_in-access"></view>
+    </navigator>
+    <navigator class="navigator-item" url="/pages/my_topic/my_topic">
+      <view class="navigator-item-bd">我的微博</view>
+      <view class="navigator-item-ft navigator-item-ft_in-access"></view>
+    </navigator>
+    <navigator class="navigator-item" url="/pages/my_reply/my_reply">
+      <view class="navigator-item-bd">我的回复</view>
+      <view class="navigator-item-ft navigator-item-ft_in-access"></view>
+    </navigator>
+  </view>
+
+  <!-- 登录模块 -->
+  <button class="login-btn" wx:if="{{!userInfo.nickName}}" hover-class="login-btn_hover" bindtap="onGetUserInfo">
+    授权登录使用</button>
 </view>

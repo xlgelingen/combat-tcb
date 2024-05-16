@@ -2,7 +2,7 @@
   <!-- 用户信息模块 -->
   <view class="user-section">
     <view class="login-container">
-      <text class="user-nickName" wx:if="{{userInfo.nickName}}">{{nickName}}</text>
+      <text class="user-nickName" wx:if="{{userInfo.nickName}}">{{nickName?nickName:userInfo.nickName}}</text>
       <image class="user-avatarUrl" wx:if="{{userInfo.nickName}}" src="{{avatarUrl}}"></image>
     </view>
     <view class="unLogin-container">

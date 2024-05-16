@@ -1,6 +1,22 @@
-<!-- pages/me/index.wxml -->
-<view class="page_container">
-  <view class="main_content">
-    发布微博
+<view class="page-container">
+  <!-- 输入模块 -->
+  <view class="form-section">
+    <textarea class="form-textarea" placeholder="今天有啥新发现 ～" bindinput="handleChange"></textarea>
+  </view>
+  <!-- 资源模块 -->
+  <view class="resource-section">
+    <view wx:if="{{uploadShow}}" class="resource-item resource-item_add" bindtap="handleUpload"></view>
+    <!-- <image wx:if="{{imageUrl}}" class="resource-item" src="{{imageUrl}}" mode="widthFix"></image> -->
+    <!-- <video wx:if="{{videoUrl}}" class="resource-item" src="{{videoUrl}}" controls="{{false}}" objectFit="cover"></video> -->
+    <block wx:for="{{imageUrl}}" wx:key="key" wx:for-item="url">
+      <image src="{{url}}" class="resource-item" mode="widthFix"></image>
+    </block>
+    <block wx:for="{{videoUrl}}" wx:key="key" wx:for-item="url">
+      <video src="{{url}}" class="resource-item" controls="{{false}}" objectFit="cover"></video>
+    </block>
+  </view>
+  <!-- 发布模块 -->
+  <view class="btn-section">
+    <button class="submit-btn" hover-class="submit-btn_hover" bindtap="handleSubmit">发布</button>
   </view>
 </view>

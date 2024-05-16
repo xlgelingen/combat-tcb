@@ -15,7 +15,7 @@ Page({
   // 获取全局对象中的 app.globalData.userInfo
   getUserInfo: function() {
     let userInfo = app.globalData.userInfo;
-    console.log('getUserInfo',userInfo)
+    // console.log('getUserInfo',userInfo)
     if(userInfo.nickName){
       this.setData({
         logged: true,
@@ -24,14 +24,14 @@ Page({
     }
   },
   onChooseAvatar(e) {
-    console.log('onChooseAvatar',e.detail)
+    // console.log('onChooseAvatar',e.detail)
     const { avatarUrl } = e.detail 
     this.setData({
       avatarUrl,
     })
   },
   onGetUserInfo: function(e) {
-    console.log('onGetUserInfo',e.detail.userInfo)
+    // console.log('onGetUserInfo',e.detail.userInfo)
     app.globalData.nickName = this.data.nickName;
     app.globalData.avatarUrl = this.data.avatarUrl;
     if (e.detail.userInfo) {

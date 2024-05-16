@@ -24,11 +24,11 @@ App({
   getUserInfo: function (cb) {
     wx.getSetting({
       success: res => {
-        console.log('getSetting',res.authSetting)
+        // console.log('getSetting',res.authSetting)
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: res => {
-              console.log('getUserInfo',res.userInfo)
+              // console.log('getUserInfo',res.userInfo)
               this.getOpenid();
               this.globalData.userInfo = res.userInfo;
               //检查传入的回调函数 cb 是否为函数类型，如果是函数，则调用它，并将获取到的用户信息 res 作为参数传递给它。

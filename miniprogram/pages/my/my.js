@@ -1,45 +1,30 @@
 const app = getApp();
-
 Page({
-  // 定义好 userInfo 存储用户信息
   data: {
     logged: false,
     nickName: '',
     avatarUrl: '../../images/people.png',
     userInfo: {},
   },
-  // 在页面加载时调用 getUserInfo 方法
-  onLoad: function() {
+  onShow: function () {
     this.getUserInfo();
   },
   // 获取全局对象中的 app.globalData.userInfo
-  getUserInfo: function() {
+  getUserInfo: function () {
     let userInfo = app.globalData.userInfo;
     // console.log('getUserInfo',userInfo)
-    if(userInfo.nickName){
+    if (userInfo.nickName) {
       this.setData({
         logged: true,
-        userInfo: userInfo
+        userInfo: userInfo,
+        nickName:app.globalData.nickName,
+        avatarUrl: app.globalData.avatarUrl
       })
-    }
+    } 
   },
-  onChooseAvatar(e) {
-    // console.log('onChooseAvatar',e.detail)
-    const { avatarUrl } = e.detail 
-    this.setData({
-      avatarUrl,
+  handleLogin: function () { 
+    wx.navigateTo({
+      url: '../login/login'
     })
   },
-  handleLogin: function(e) {
-    // console.log('handleLogin',e.detail.userInfo)
-    app.globalData.nickName = this.data.nickName;
-    app.globalData.avatarUrl = this.data.avatarUrl;
-    if (e.detail.userInfo) {
-      app.getUserInfo((res)=>{
-        this.setData({
-          userInfo: res.userInfo
-        })
-      })
-    }
-  }
 })

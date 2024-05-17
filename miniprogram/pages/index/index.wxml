@@ -1,5 +1,6 @@
 <view class="page-container">
-  <view class="topics-list">
+  <custom-topics topics="{{topics}}"></custom-topics>
+  <!-- <view class="topics-list">
       <navigator class="topics-item"  wx:key="key" wx:for="{{ topics }}" url="/pages/detail/detail?id={{topic._id}}" wx:for-item="topic">
         <image class="topics-hd topics-avatar" src="{{topic.userInfo.avatarUrl}}"></image>
         <view class="topics-bd">
@@ -21,5 +22,5 @@
           </view>
         </view>
       </navigator>
-  </view>
+  </view> -->
 </view>

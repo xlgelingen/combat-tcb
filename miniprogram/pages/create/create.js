@@ -9,8 +9,6 @@ Page({
     uploadShow: true,
     imageUrl: [],
     videoUrl: [],
-    // imageUrl: '',
-    // videoUrl: '',
     mediaNum: 0,
     content: ''
   },
@@ -40,9 +38,25 @@ Page({
     wx.showActionSheet({
       itemList: itemList,
       success: (res) => {
+        console.log('res.tapIndex', res.tapIndex)
         let type = itemListType[res.tapIndex];
-        // console.log(type)
-        if (type === 'video') {
+        console.log('type', type)
+        if (type === 'image') {
+          console.log("上传image")
+          wx.chooseMedia({
+            count: 1,
+            mediaType: 'image',
+            sizeType: ['compressed'],
+            sourceType: ['album', 'camera'],
+            success: (res) => {
+              let filePath = res.tempFiles[0].tempFilePath;
+              console.log('上传/filePath', filePath)
+              this.uploadFile(type, filePath)
+              this.updateMediaNum();
+            }
+          })
+        } else {
+          console.log("上传video")
           wx.chooseMedia({
             count: 1,
             mediaType: 'video',
@@ -51,20 +65,7 @@ Page({
             camera: 'back',
             success: (res) => {
               let filePath = res.tempFiles[0].tempFilePath;
-              console.log('filePath', filePath)
-              this.uploadFile(type, filePath)
-              this.updateMediaNum();
-            }
-          })
-        } else {
-          wx.chooseMedia({
-            count: 1,
-            mediaType: 'image',
-            sizeType: ['compressed'],
-            sourceType: ['album', 'camera'],
-            success: (res) => {
-              let filePath = res.tempFiles[0].tempFilePath;
-              console.log('filePath', filePath)
+              console.log('上传/filePath', filePath)
               this.uploadFile(type, filePath)
               this.updateMediaNum();
             }
@@ -74,6 +75,7 @@ Page({
     })
   },
   uploadFile: function (type, filePath) {
+    console.log('uploadFile', type)
     let openid = app.globalData.openid;
     let timestamp = Date.now();
     let postfix = filePath.match(/\.[^.]+?$/)[0];
@@ -90,21 +92,20 @@ Page({
       cloudPath,
       filePath,
       success: (res) => {
-        if (type === 'video') {
-          let videoUrl = [...this.data.videoUrl];
-          videoUrl.push(res.fileID)
-          this.setData({ videoUrl })
-          // console.log('res.fileID',res.fileID)
-          // this.setData({ videoUrl: res.fileID })
-        } else {
+        if (type === 'image') {
           let imageUrl = [...this.data.imageUrl];
           imageUrl.push(res.fileID)
-          console.log('imageUrl', imageUrl)
           this.setData({
             imageUrl: imageUrl
           })
-          // console.log('res.fileID',res.fileID)
-          // this.setData({ imageUrl: res.fileID })
+          console.log('上传/res.fileID', res.fileID)
+          console.log('上传/imageUrl', this.data.imageUrl)
+        } else {
+          let videoUrl = [...this.data.videoUrl];
+          videoUrl.push(res.fileID)
+          this.setData({ videoUrl })
+          console.log('上传/res.fileID', res.fileID)
+          console.log('上传/videoUrl', this.data.videoUrl)
         }
       },
       fail: (e) => {
@@ -134,10 +135,15 @@ Page({
     let content = this.data.content;
     let imageUrl = this.data.imageUrl;
     let videoUrl = this.data.videoUrl;
-    const nickName = app.globalData.nickName?app.globalData.nickName:app.globalData.userInfo.nickName ;
+    const nickName = app.globalData.nickName ? app.globalData.nickName : app.globalData.userInfo.nickName;
     const avatarUrl = app.globalData.avatarUrl;
-    let userInfo = {...app.globalData.userInfo, nickName, avatarUrl};
-    console.log('userInfo',userInfo)
+    let userInfo = { ...app.globalData.userInfo, nickName, avatarUrl };
+    console.log('发布/userInfo', userInfo)
+    console.log('发布/content', content)
+    console.log('发布/imageUrl', imageUrl)
+    console.log('发布/videoUrl', videoUrl)
+    console.log('发布/date_display', date_display)
+    console.log('发布/createTime', createTime)
     if (!content && !imageUrl.length && !videoUrl.length) {
       wx.showToast({
         icon: 'none',

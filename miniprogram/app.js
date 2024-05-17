@@ -3,11 +3,11 @@ App({
     userInfo: {},
     openid: '',
     nickName: '',
-    avatarUrl: './images/people.png',
+    avatarUrl: '../../images/people.png',
   },
   onLaunch: function () {
     this.cloudInit();
-    this.getUserInfo();
+    // this.getUserInfo();
   },
   // cloudInit 初始化云开发配置
   cloudInit: function () {

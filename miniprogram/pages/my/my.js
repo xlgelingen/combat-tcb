@@ -30,8 +30,8 @@ Page({
       avatarUrl,
     })
   },
-  onGetUserInfo: function(e) {
-    // console.log('onGetUserInfo',e.detail.userInfo)
+  handleLogin: function(e) {
+    // console.log('handleLogin',e.detail.userInfo)
     app.globalData.nickName = this.data.nickName;
     app.globalData.avatarUrl = this.data.avatarUrl;
     if (e.detail.userInfo) {

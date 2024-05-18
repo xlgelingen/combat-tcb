@@ -1,5 +1,15 @@
 <!-- pages/me/index.wxml -->
 <view class="page_container">
-  <view class="main_content">
+  <view class="reply-container">
+    <view class="reply-item" wx:key="{{replies._id}}" wx:for="{{ replies }}">
+      <image class="reply-ft reply-avatar" src="{{item.userInfo.avatarUrl}}"></image>
+      <view class="reply-bd">
+        <view class="reply-nickName">{{item.userInfo.nickName}}</view>
+        <view class="reply-content">{{item.content}}</view>
+        <view class="reply-info">
+          <text class="reply-reply-date">{{item.date_display}}</text>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

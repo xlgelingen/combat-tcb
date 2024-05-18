@@ -15,7 +15,7 @@ Page({
     this.getUserInfo();
     this.getReplies(options.id);
   },
-  onShow(){
+  onShow() {
     this.getUserInfo();
   },
   getTopics: function (id) {
@@ -49,7 +49,7 @@ Page({
       }
     })
   },
-  handleLogin: function () { 
+  handleLogin: function () {
     wx.navigateTo({
       url: '../login/login'
     })
@@ -107,6 +107,8 @@ Page({
         wx.showToast({ title: '评论成功' })
         replies.unshift({ content, userInfo, date_display, topic_id, createTime });
         this.setData({ replies, message: '' });
+        // 在新增评论成功后调用递增方法
+        this.incReply(topic_id);
       },
       fail: err => {
         wx.showToast({
@@ -117,6 +119,20 @@ Page({
       },
       complete: () => {
         wx.hideLoading()
+      }
+    })
+  },
+  incReply(topic_id) {
+    wx.cloud.callFunction({
+      name: 'incReply',
+      data: {
+        topic_id: topic_id
+      },
+      success: res => {
+        console.log('[云函数] [addReply] user openid: ', res.result)
+      },
+      fail: err => {
+        console.error('[云函数] [addReply] 调用失败', err)
       }
     })
   }
